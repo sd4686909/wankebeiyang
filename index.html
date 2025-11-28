@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>万科北阳项目：数据背后的真相</title>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap');
+        :root {
+            --color-red: #d9363e;
+            --color-green: #389e0d;
+            --color-blue: #1677ff;
+            --color-grey: #8c8c8c;
+            --color-dark: #262626;
+            --bg-light: #f0f2f5;
+            --bg-white: #ffffff;
+            --border-color: #f0f0f0;
+        }
+        * { box-sizing: border-box; }
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--color-dark);
+            line-height: 1.7;
+            margin: 0;
+            padding: 15px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: var(--bg-white);
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+        }
+        header { text-align: center; margin-bottom: 25px; }
+        header h1 { color: var(--color-red); font-size: 1.8em; margin: 0 0 10px 0; }
+        header .subtitle { font-size: 1.1em; color: var(--color-grey); }
+        
+        .section { margin-bottom: 30px; }
+        .section-title { font-size: 1.5em; font-weight: 700; color: var(--color-dark); margin-bottom: 15px; padding-bottom: 10px; border-bottom: 3px solid var(--color-red); }
+        
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .kpi-card {
+            background-color: #fafafa;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+        }
+        .kpi-card .label { font-size: 0.9em; color: var(--color-grey); margin-bottom: 5px; }
+        .kpi-card .value { font-size: 1.8em; font-weight: 700; color: var(--color-dark); }
+        .kpi-card .value.red { color: var(--color-red); }
+        .kpi-card .value.green { color: var(--color-green); }
+
+        .analysis-text { padding: 15px; background-color: #fffbe6; border-radius: 4px; border: 1px solid #ffe58f; margin-top: 15px; }
+        .analysis-text strong { color: var(--color-red); }
+        
+        .chart-container { width: 100%; margin: 20px 0; }
+
+        @media (min-width: 600px) {
+            body { padding: 25px; }
+            .container { padding: 30px 40px; }
+            header h1 { font-size: 2.2em; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>万科北阳项目核心数据穿透</h1>
+            <p class="subtitle">—— 基于官方说法的逻辑与现实矛盾分析</p>
+        </header>
+
+        <!-- Section 1: The Big Picture -->
+        <section class="section">
+            <h2 class="section-title">一、 项目总览：资产与销售情况</h2>
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="label">项目总价值</div>
+                    <div class="value">4.6 亿</div>
+                </div>
+                 <div class="kpi-card">
+                    <div class="label">房产总数</div>
+                    <div class="value">172 套</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="label">已售出(好卖)</div>
+                    <div class="value green">141 套</div>
+                </div>
+                 <div class="kpi-card">
+                    <div class="label">剩余尾房(不好卖)</div>
+                    <div class="value red">31 套</div>
+                </div>
+            </div>
+            <div id="chart-project-overview" class="chart-container"></div>
+            <div class="analysis-text">
+                <strong>基本事实：</strong> 一站一街已售出项目中<strong>超过82%</strong>的房产，并包揽了其中<strong>95%</strong>的价值（4.35亿/4.6亿），为万科北阳回笼了绝大部分资金，仅剩下价值约0.25亿的尾盘。
+            </div>
+        </section>
+
+        <!-- Section 2: The Money Trail (Beiyang's Version) -->
+        <section class="section">
+            <h2 class="section-title">二、 资金视角：北阳官方说辞</h2>
+             <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="label">业主已付总额</div>
+                    <div class="value">4.35 亿</div>
+                </div>
+                 <div class="kpi-card">
+                    <div class="label">北阳实收款</div>
+                    <div class="value green">2.99 亿</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="label">北阳主张欠款</div>
+                    <div class="value red">1.59 亿</div>
+                </div>
+            </div>
+            <div id="chart-money-flow" class="chart-container"></div>
+            <div class="analysis-text">
+                <strong>北阳视角：</strong> 在售出的4.35亿房产中，他们收到了2.99亿。他们认为剩余的<strong>1.34亿销售款</strong>和<strong>0.25亿尾房价值</strong>，共计1.59亿，是一站一街的欠款。
+            </div>
+        </section>
+
+        <!-- Section 3: The Asset Reality -->
+        <section class="section">
+            <h2 class="section-title">三、 资产视角：现实中的交付情况</h2>
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="label">已收款总套数</div>
+                    <div class="value">141 套</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="label">已交付套数</div>
+                    <div class="value green">89 套</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="label">已收款未交付</div>
+                    <div class="value red">52 套</div>
+                </div>
+            </div>
+            <div id="chart-asset-reality" class="chart-container"></div>
+             <div class="analysis-text">
+                <strong>核心矛盾点：</strong> 万科北阳在收到了2.99亿巨款后，却只交付了89套房，仍有<strong>52位已全额付款的业主</strong>没有拿到自己的商铺。这52套房产的价值约为 <strong>1.61亿</strong> (4.35亿 / 141套 * 52套)。
+            </div>
+        </section>
+
+        <!-- Section 4: The Delivery Imbalance -->
+        <section class="section">
+            <h2 class="section-title">四、 交付细节：被“牺牲”的12号楼</h2>
+            <div id="chart-building-delivery" class="chart-container"></div>
+            <div class="analysis-text">
+                <strong>不公平的现实：</strong> 交付存在明显的、非随机的选择性。<strong>13号楼（42套）被100%优先交付完毕</strong>，而所有烂尾和纠纷都集中在了<strong>12号楼</strong>。12号楼共130套房，仅交付了47套（交付率仅36%），那<strong>52套已付款未交付的房产全部位于12号楼</strong>。这表明万科北阳在履约过程中存在策略性、选择性的交付，而非按付款顺序公平交付。
+            </div>
+        </section>
+
+    </div>
+
+<script>
+    // Chart 1: Project Overview (Value)
+    var options1 = {
+        series: [4.35, 0.25],
+        chart: { type: 'donut', height: 300 },
+        labels: ['已售出部分价值', '剩余尾房价值'],
+        colors: ['#52c41a', '#bfbfbf'],
+        title: { text: '项目总价值 (4.6亿) 构成', align: 'center', style: { fontSize: '16px' } },
+        legend: { position: 'bottom' },
+        dataLabels: { formatter: (val, opts) => opts.w.globals.series[opts.seriesIndex].toFixed(2) + " 亿" }
+    };
+    new ApexCharts(document.querySelector("#chart-project-overview"), options1).render();
+
+    // Chart 2: Money Flow
+    var options2 = {
+        series: [{ name: '金额', data: [4.35, 2.99, 1.59] }],
+        chart: { type: 'bar', height: 300, toolbar: { show: false } },
+        plotOptions: { bar: { horizontal: false, columnWidth: '50%', distributed: true } },
+        dataLabels: { enabled: true, formatter: (val) => val.toFixed(2) + " 亿" },
+        xaxis: { categories: ['业主已付总款', '北阳实收款', '北阳主张欠款'] },
+        yaxis: { title: { text: '金额 (亿元)' } },
+        colors: ['#1677ff', '#52c41a', '#d9363e'],
+        legend: { show: false },
+        title: { text: '资金流动情况 (北阳视角)', align: 'center', style: { fontSize: '16px' } },
+    };
+    new ApexCharts(document.querySelector("#chart-money-flow"), options2).render();
+    
+    // Chart 3: Asset Reality
+    var options3 = {
+        series: [{ name: '已交付', data: [89] }, { name: '已收款未交付', data: [52] }],
+        chart: { type: 'bar', height: 300, stacked: true, stackType: '100%' },
+        plotOptions: { bar: { horizontal: true } },
+        stroke: { width: 1, colors: ['#fff'] },
+        xaxis: { categories: ['已售房产 (141套)'], labels: { show: false } },
+        yaxis: { title: { text: '' } },
+        tooltip: { y: { formatter: (val) => val + " 套" } },
+        fill: { opacity: 1 },
+        colors: ['#52c41a', '#d9363e'],
+        legend: { position: 'top', horizontalAlign: 'center' },
+        title: { text: '已售141套房产的交付状态', align: 'center', style: { fontSize: '16px' } },
+    };
+    new ApexCharts(document.querySelector("#chart-asset-reality"), options3).render();
+
+    // Chart 4: Building Delivery
+    var options4 = {
+        series: [{ name: '总套数', data: [42, 130] }, { name: '已交付套数', data: [42, 47] }],
+        chart: { type: 'bar', height: 300, toolbar: { show: false } },
+        plotOptions: { bar: { horizontal: false, columnWidth: '60%' } },
+        dataLabels: { enabled: true },
+        stroke: { show: true, width: 2, colors: ['transparent'] },
+        xaxis: { categories: ['13号楼', '12号楼'] },
+        yaxis: { title: { text: '套数' } },
+        colors: ['#bfbfbf', '#52c41a'],
+        fill: { opacity: 1 },
+        legend: { position: 'top' },
+        title: { text: '不同楼栋交付情况对比', align: 'center', style: { fontSize: '16px' } },
+    };
+    new ApexCharts(document.querySelector("#chart-building-delivery"), options4).render();
+
+</script>
+
+</body>
+</html>
